@@ -1,16 +1,16 @@
-# This is a sample Python script.
+from fastapi import FastAPI
 
-# Press Ctrl+F5 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+from app.db import Base, engine
+from app.api import router as tasks_router
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def create_app() -> FastAPI:
+    app = FastAPI(title="Task Manager", version="0.1.0")
+    app.include_router(tasks_router)
+    return app
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+app = create_app()
+
+# auto-create schema on startup (для тестового задания достаточно)
+Base.metadata.create_all(bind=engine)
