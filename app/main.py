@@ -12,5 +12,4 @@ def create_app() -> FastAPI:
 
 app = create_app()
 
-# auto-create schema on startup (для тестового задания достаточно)
 Base.metadata.create_all(bind=engine)
